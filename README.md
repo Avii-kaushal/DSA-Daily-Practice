@@ -15,5 +15,6 @@ This repository contains my daily solutions to Data Structures and Algorithms pr
 - HackerRank
 
 ## Languages
+- JavaScript
 - Python
 - Java
