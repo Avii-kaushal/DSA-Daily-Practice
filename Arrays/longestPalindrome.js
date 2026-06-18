@@ -1,3 +1,47 @@
+// Time Complexity: O(n)                      Manacher's Algorithm  ---   Optimal Approach
+// Space Complexity: O(n)
+
+var longestPalindrome = function(s) {
+    let str = "^#" + s.split("").join("#") + "#$";
+    let n = str.length;
+
+    let p = new Array(n).fill(0);
+    let center = 0;
+    let right = 0;
+
+    let maxLen = 0;
+    let centerIndex = 0;
+
+    for (let i = 1; i < n - 1; i++) {
+        let mirror = 2 * center - i;
+
+        if (i < right) {
+            p[i] = Math.min(right - i, p[mirror]);
+        }
+
+        while (str[i + 1 + p[i]] === str[i - 1 - p[i]]) {
+            p[i]++;
+        }
+
+        if (i + p[i] > right) {
+            center = i;
+            right = i + p[i];
+        }
+
+        if (p[i] > maxLen) {
+            maxLen = p[i];
+            centerIndex = i;
+        }
+    }
+
+    let start = Math.floor((centerIndex - maxLen) / 2);
+
+    return s.substring(start, start + maxLen);
+};
+
+
+
+
 // Time Complexity: O(n^2)                      Expand Around Center Approach  ---   Better Approach
 // Space Complexity: O(1)
 
