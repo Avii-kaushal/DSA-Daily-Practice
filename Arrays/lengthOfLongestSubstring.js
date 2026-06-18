@@ -1,3 +1,50 @@
+// Time Complexity: O(n)                      Hash Map + Sliding Window Approach  ---   Most Optimized
+// Space Complexity: O(n)
+
+var lengthOfLongestSubstring = function(s) {
+    let map = new Map();
+
+    let left = 0;
+    let maxLength = 0;
+
+    for (let right = 0; right < s.length; right++) {
+        if (map.has(s[right])) {
+            left = Math.max(left, map.get(s[right]) + 1);
+        }
+
+        map.set(s[right], right);
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+
+    return maxLength;
+};
+
+
+
+// Time Complexity: O(n)                      Sliding Window Approach  ---   Optimal Approach
+// Space Complexity: O(n)
+
+var lengthOfLongestSubstring = function(s) {
+    let set = new Set();
+
+    let left = 0;
+    let maxLength = 0;
+
+    for (let right = 0; right < s.length; right++) {
+        while (set.has(s[right])) {
+            set.delete(s[left]);
+            left++;
+        }
+
+        set.add(s[right]);
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+
+    return maxLength;
+};
+
+
+
 // Time Complexity: O(n^3)                      Brute Force Approach
 // Space Complexity: O(1)
 
