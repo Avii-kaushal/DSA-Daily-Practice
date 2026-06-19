@@ -1,4 +1,37 @@
-// Time Complexity: O(n²)                                   Brute Force
+// Time Complexity: O(n)                                    ---   Optimal Approach
+// Space Complexity: O(n)
+
+var convert = function(s, numRows) {
+    if (numRows === 1 || numRows >= s.length) {
+        return s;
+    }
+
+    const rows = new Array(numRows).fill('');
+
+    let currentRow = 0;
+    let goingDown = false;
+
+    for (const char of s) {
+
+        rows[currentRow] += char;
+
+        if (
+            currentRow === 0 ||
+            currentRow === numRows - 1
+        ) {
+            goingDown = !goingDown;
+        }
+
+        currentRow += goingDown ? 1 : -1;
+    }
+
+    return rows.join('');
+};
+
+
+
+
+// Time Complexity: O(n²)                                ---     Brute Force
 // Space Complexity: O(n²)
 
 var convert = function(s, numRows) {
