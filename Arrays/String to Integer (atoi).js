@@ -1,3 +1,43 @@
+// Time Complexity: O(n)              Single Pass Approach
+// Space Complexity: O(1)
+
+function myAtoi(s) {
+    let i = 0;
+    let n = s.length;
+
+    // Skip leading whitespaces
+    while (i < n && s[i] === " ") {
+        i++;
+    }
+
+    // Check sign
+    let sign = 1;
+    if (i < n && (s[i] === "+" || s[i] === "-")) {
+        if (s[i] === "-") sign = -1;
+        i++;
+    }
+
+    let result = 0;
+
+    // Read digits
+    while (i < n && s[i] >= "0" && s[i] <= "9") {
+        let digit = s[i].charCodeAt(0) - "0".charCodeAt(0);
+
+        result = result * 10 + digit;
+
+        // Clamp to 32-bit signed integer range
+        if (sign * result > 2147483647)
+            return 2147483647;
+
+        if (sign * result < -2147483648)
+            return -2147483648;
+
+        i++;
+    }
+
+    return sign * result;
+}
+
 // Time Complexity: O(n)              Using Extra String
 // Space Complexity: O(n)
 
