@@ -1,3 +1,33 @@
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(n)
+
+var isValid = function (s) {
+    let stack = [];
+
+    const map = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+    };
+
+    for (let ch of s) {
+        // Push opening brackets
+        if (ch === '(' || ch === '{' || ch === '[') {
+            stack.push(ch);
+        }
+        // Check matching closing brackets
+        else {
+            if (stack.length === 0 || stack.pop() !== map[ch]) {
+                return false;
+            }
+        }
+    }
+
+    // Stack should be empty if all brackets are matched
+    return stack.length === 0;
+};
+
+
 // Time Complexity: O(n²)                               ---     Brute Force
 // Space Complexity: O(n)
 
