@@ -1,4 +1,29 @@
-// Time Complexity: O(n) 
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var swapPairs = function (head) {
+    let dummy = new ListNode(0);
+    dummy.next = head;
+
+    let prev = dummy;
+
+    while (prev.next !== null && prev.next.next !== null) {
+        let first = prev.next;
+        let second = first.next;
+
+        // Swap the pair
+        first.next = second.next;
+        second.next = first;
+        prev.next = second;
+
+        // Move to the next pair
+        prev = first;
+    }
+
+    return dummy.next;
+};
+
+// Time Complexity: O(n)                               ---     Brute Force
 // Space Complexity: O(n)
 
 var swapPairs = function (head) {
