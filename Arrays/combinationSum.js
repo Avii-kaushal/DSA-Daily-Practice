@@ -1,4 +1,37 @@
-// Time Complexity: O(n^target)   
+// Time Complexity: O(2^target)                               ---     Optimal Approach
+// Space Complexity: O(target)
+
+var combinationSum = function (candidates, target) {
+    let result = [];
+
+    function backtrack(index, current, total) {
+        // Target achieved
+        if (total === target) {
+            result.push([...current]);
+            return;
+        }
+
+        // Out of bounds or exceeded target
+        if (index === candidates.length || total > target) {
+            return;
+        }
+
+        // Include current candidate
+        current.push(candidates[index]);
+        backtrack(index, current, total + candidates[index]);
+        current.pop();
+
+        // Exclude current candidate
+        backtrack(index + 1, current, total);
+    }
+
+    backtrack(0, [], 0);
+
+    return result;
+};
+
+
+// Time Complexity: O(n^target)                               ---     Brute Force
 // Space Complexity: O(target)
 
 var combinationSum = function (candidates, target) {
