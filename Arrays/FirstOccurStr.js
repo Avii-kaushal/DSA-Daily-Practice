@@ -1,4 +1,13 @@
-// Time Complexity: O((n - m + 1) * m)   
+// Time Complexity: O(n + m)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var strStr = function (haystack, needle) {
+    return haystack.indexOf(needle);
+};
+
+
+
+// Time Complexity: O((n - m + 1) * m)                     ---     Brute Force
 // Space Complexity: O(1)
 
 var strStr = function (haystack, needle) {
