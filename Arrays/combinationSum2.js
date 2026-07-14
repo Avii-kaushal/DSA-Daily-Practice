@@ -1,4 +1,46 @@
-// Time Complexity: O(2^n * n log n)  
+// Time Complexity: O(2^n)                               ---     Optimal Approach
+// Space Complexity: O(n)
+
+var combinationSum2 = function (candidates, target) {
+    candidates.sort((a, b) => a - b);
+
+    let result = [];
+
+    function backtrack(start, current, sum) {
+        // Target achieved
+        if (sum === target) {
+            result.push([...current]);
+            return;
+        }
+
+        // Exceeded target
+        if (sum > target) {
+            return;
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+
+            // Skip duplicate elements
+            if (i > start && candidates[i] === candidates[i - 1]) {
+                continue;
+            }
+
+            current.push(candidates[i]);
+
+            // Move to next index (each number used only once)
+            backtrack(i + 1, current, sum + candidates[i]);
+
+            current.pop();
+        }
+    }
+
+    backtrack(0, [], 0);
+
+    return result;
+};
+
+
+// Time Complexity: O(2^n * n log n)                     ---     Brute Force
 // Space Complexity: O(2^n)
 
 var combinationSum2 = function (candidates, target) {
