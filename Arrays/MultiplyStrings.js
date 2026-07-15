@@ -1,4 +1,42 @@
-// Time Complexity: O(n * m + n + m) 
+// Time Complexity: O(n * m)                               ---     Optimal Approach
+// Space Complexity: O(n + m)
+
+var multiply = function (num1, num2) {
+    if (num1 === "0" || num2 === "0") {
+        return "0";
+    }
+
+    let n = num1.length;
+    let m = num2.length;
+
+    let result = new Array(n + m).fill(0);
+
+    // Multiply each digit
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = m - 1; j >= 0; j--) {
+            let mul = (num1[i] - '0') * (num2[j] - '0');
+
+            let p1 = i + j;
+            let p2 = i + j + 1;
+
+            let sum = mul + result[p2];
+
+            result[p2] = sum % 10;
+            result[p1] += Math.floor(sum / 10);
+        }
+    }
+
+    // Remove leading zeros
+    while (result[0] === 0) {
+        result.shift();
+    }
+
+    return result.join("");
+};
+
+
+
+// Time Complexity: O(n * m + n + m)                       ---     Brute Force
 // Space Complexity: O(n + m)
 
 var multiply = function (num1, num2) {
