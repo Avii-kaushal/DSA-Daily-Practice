@@ -5,7 +5,6 @@ var rotateRight = function (head, k) {
     if (head === null || head.next === null || k === 0) {
         return head;
     }
-
     // Find the length and last node
     let length = 1;
     let tail = head;
