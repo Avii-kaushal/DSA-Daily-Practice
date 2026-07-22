@@ -1,4 +1,35 @@
-// Time Complexity: O(n)                     
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var sortColors = function (nums) {
+    let low = 0;
+    let mid = 0;
+    let high = nums.length - 1;
+
+    while (mid <= high) {
+
+        if (nums[mid] === 0) {
+            // Swap with low pointer
+            [nums[low], nums[mid]] = [nums[mid], nums[low]];
+            low++;
+            mid++;
+        }
+
+        else if (nums[mid] === 1) {
+            // 1 is already in the correct position
+            mid++;
+        }
+
+        else {
+            // Swap with high pointer
+            [nums[mid], nums[high]] = [nums[high], nums[mid]];
+            high--;
+        }
+    }
+};
+
+
+// Time Complexity: O(n)                               ---     Brute Force
 // Space Complexity: O(1)
 
 var sortColors = function (nums) {
