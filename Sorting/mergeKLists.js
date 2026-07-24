@@ -1,4 +1,4 @@
-// Time Complexity: O(N log k)                               ---     Optimal Approach
+// Time Complexity: O(N log k)                               ---    Optimal Approach
 // Space Complexity: O(log k)
 
 var mergeKLists = function (lists) {
