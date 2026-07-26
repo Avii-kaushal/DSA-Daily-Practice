@@ -1,3 +1,55 @@
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var reverseKGroup = function (head, k) {
+    if (head === null || k === 1) {
+        return head;
+    }
+
+    let dummy = new ListNode(0);
+    dummy.next = head;
+
+    let groupPrev = dummy;
+
+    while (true) {
+
+        // Find the kth node
+        let kth = groupPrev;
+
+        for (let i = 0; i < k && kth !== null; i++) {
+            kth = kth.next;
+        }
+
+        if (kth === null) {
+            break;
+        }
+
+        let groupNext = kth.next;
+
+        // Reverse current group
+        let prev = groupNext;
+        let curr = groupPrev.next;
+
+        while (curr !== groupNext) {
+            let next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        // Connect reversed group
+        let temp = groupPrev.next;
+        groupPrev.next = kth;
+        groupPrev = temp;
+    }
+
+    return dummy.next;
+};
+
+
+
+
+
 // Time Complexity: O(n)                  
 // Space Complexity: O(n)
 
