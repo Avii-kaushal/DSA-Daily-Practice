@@ -1,4 +1,65 @@
-// Time Complexity: O((n - k + 1) × m × L)    
+// Time Complexity: O(n * wordLength)                               ---     Optimal Approach
+// Space Complexity: O(m)
+
+var findSubstring = function (s, words) {
+    if (s.length === 0 || words.length === 0) return [];
+
+    const wordLength = words[0].length;
+    const wordCount = words.length;
+    const totalLength = wordLength * wordCount;
+
+    let target = new Map();
+
+    for (let word of words) {
+        target.set(word, (target.get(word) || 0) + 1);
+    }
+
+    let result = [];
+
+    // Check each possible offset
+    for (let offset = 0; offset < wordLength; offset++) {
+        let left = offset;
+        let count = 0;
+        let window = new Map();
+
+        for (let right = offset; right + wordLength <= s.length; right += wordLength) {
+            let word = s.substring(right, right + wordLength);
+
+            if (target.has(word)) {
+                window.set(word, (window.get(word) || 0) + 1);
+                count++;
+
+                while (window.get(word) > target.get(word)) {
+                    let leftWord = s.substring(left, left + wordLength);
+                    window.set(leftWord, window.get(leftWord) - 1);
+                    left += wordLength;
+                    count--;
+                }
+
+                if (count === wordCount) {
+                    result.push(left);
+
+                    let leftWord = s.substring(left, left + wordLength);
+                    window.set(leftWord, window.get(leftWord) - 1);
+                    left += wordLength;
+                    count--;
+                }
+            } else {
+                window.clear();
+                count = 0;
+                left = right + wordLength;
+            }
+        }
+    }
+
+    return result;
+};
+
+
+
+
+
+// Time Complexity: O((n - k + 1) × m × L)                               ---     Brute Force
 // Space Complexity: O(m)
 
 var findSubstring = function (s, words) {
