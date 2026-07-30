@@ -1,4 +1,34 @@
-// Time Complexity: O(n²)         
+// Time Complexity: O(n log n)                               ---     Optimal Approach
+// Space Complexity: O(n)
+
+var merge = function (intervals) {
+    if (intervals.length <= 1) {
+        return intervals;
+    }
+
+    // Sort intervals by starting time
+    intervals.sort((a, b) => a[0] - b[0]);
+
+    let result = [intervals[0]];
+
+    for (let i = 1; i < intervals.length; i++) {
+        let last = result[result.length - 1];
+        let current = intervals[i];
+
+        // Overlapping intervals
+        if (current[0] <= last[1]) {
+            last[1] = Math.max(last[1], current[1]);
+        } else {
+            result.push(current);
+        }
+    }
+
+    return result;
+};
+
+
+
+// Time Complexity: O(n²)                               ---     Brute Force
 // Space Complexity: O(n)
 
 var merge = function (intervals) {
