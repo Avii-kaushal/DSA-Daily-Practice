@@ -1,4 +1,27 @@
-// Time Complexity: O(n²)            
+// Time Complexity: O(n²)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var rotate = function (matrix) {
+    const n = matrix.length;
+
+    // Step 1: Transpose the matrix
+    for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+        }
+    }
+
+    // Step 2: Reverse each row
+    for (let i = 0; i < n; i++) {
+        matrix[i].reverse();
+    }
+};
+
+
+
+
+
+// Time Complexity: O(n²)                               ---     Brute Force
 // Space Complexity: O(n²)
 
 var rotate = function (matrix) {
