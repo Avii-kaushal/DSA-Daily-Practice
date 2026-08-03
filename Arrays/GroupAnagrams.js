@@ -1,3 +1,26 @@
+// Time Complexity: O(n × k log k)                               ---     Optimal Approach
+// Space Complexity: O(n × k)
+
+var groupAnagrams = function (strs) {
+    let map = new Map();
+
+    for (let str of strs) {
+        // Sort characters to create a unique key
+        let key = str.split("").sort().join("");
+
+        if (!map.has(key)) {
+            map.set(key, []);
+        }
+
+        map.get(key).push(str);
+    }
+
+    return Array.from(map.values());
+};
+
+
+
+
 // Time Complexity: O(n² × k)                               ---     Brute Force
 // Space Complexity: O(n)
 
