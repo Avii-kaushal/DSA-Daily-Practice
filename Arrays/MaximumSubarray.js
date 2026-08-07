@@ -1,4 +1,25 @@
-// Time Complexity: O(n²)                    
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var maxSubArray = function (nums) {
+    let currentSum = nums[0];
+    let maxSum = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+
+        // Either extend the current subarray or start a new one
+        currentSum = Math.max(nums[i], currentSum + nums[i]);
+
+        // Update maximum sum
+        maxSum = Math.max(maxSum, currentSum);
+    }
+
+    return maxSum;
+};
+
+
+
+// Time Complexity: O(n²)                               ---     Brute Force
 // Space Complexity: O(1)
 
 var maxSubArray = function (nums) {
