@@ -1,4 +1,46 @@
-// Time Complexity: O(n × n!)                 
+// Time Complexity: O(n²)                               ---     Optimal Approach
+// Space Complexity: O(n)
+
+var getPermutation = function (n, k) {
+    // Store numbers [1, 2, ..., n]
+    let numbers = [];
+
+    for (let i = 1; i <= n; i++) {
+        numbers.push(i);
+    }
+
+    // Convert k to 0-based index
+    k--;
+
+    let result = "";
+
+    // Pre-calculate factorials
+    let factorial = new Array(n + 1).fill(1);
+
+    for (let i = 1; i <= n; i++) {
+        factorial[i] = factorial[i - 1] * i;
+    }
+
+    // Select each digit
+    for (let i = n; i >= 1; i--) {
+        let blockSize = factorial[i - 1];
+
+        let index = Math.floor(k / blockSize);
+
+        result += numbers[index];
+
+        // Remove selected number
+        numbers.splice(index, 1);
+
+        k %= blockSize;
+    }
+
+    return result;
+};
+
+
+
+// Time Complexity: O(n × n!)                   ---     Brute Force
 // Space Complexity: O(n × n!)
 
 var getPermutation = function (n, k) {
