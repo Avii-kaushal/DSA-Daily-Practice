@@ -1,4 +1,54 @@
-// Time Complexity: O(m × n)                  
+// Time Complexity: O(m × n)                               ---     Optimal Approach
+// Space Complexity: O(m × n)
+
+var minDistance = function (word1, word2) {
+    let m = word1.length;
+    let n = word2.length;
+
+    // dp[i][j] = minimum operations to convert
+    // first i characters of word1 to first j characters of word2
+    let dp = Array.from(
+        { length: m + 1 },
+        () => new Array(n + 1).fill(0)
+    );
+
+    // Convert word1[0...i] to empty string
+    // Requires deleting all i characters
+    for (let i = 0; i <= m; i++) {
+        dp[i][0] = i;
+    }
+
+    // Convert empty string to word2[0...j]
+    // Requires inserting all j characters
+    for (let j = 0; j <= n; j++) {
+        dp[0][j] = j;
+    }
+
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+
+            // Characters are the same
+            if (word1[i - 1] === word2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                // Replace, Delete, or Insert
+                dp[i][j] = Math.min(
+                    dp[i - 1][j - 1] + 1, // Replace
+                    dp[i - 1][j] + 1,     // Delete
+                    dp[i][j - 1] + 1      // Insert
+                );
+            }
+        }
+    }
+
+    return dp[m][n];
+};
+
+
+
+
+
+// Time Complexity: O(m × n)                               ---     Brute Force
 // Space Complexity: O(m + n)
 
 var minDistance = function (word1, word2) {
