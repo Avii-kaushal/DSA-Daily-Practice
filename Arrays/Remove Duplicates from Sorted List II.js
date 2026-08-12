@@ -1,4 +1,47 @@
-// Time Complexity: O(n) 
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var deleteDuplicates = function (head) {
+    // Dummy node handles duplicates at the head
+    let dummy = new ListNode(0);
+    dummy.next = head;
+
+    let prev = dummy;
+    let current = head;
+
+    while (current !== null) {
+
+        // Check if current node has duplicates
+        if (
+            current.next !== null &&
+            current.val === current.next.val
+        ) {
+            let duplicateValue = current.val;
+
+            // Skip all nodes having the duplicate value
+            while (
+                current !== null &&
+                current.val === duplicateValue
+            ) {
+                current = current.next;
+            }
+
+            // Connect previous distinct node
+            // directly to the next distinct node
+            prev.next = current;
+        } else {
+            // Current node is unique
+            prev = current;
+            current = current.next;
+        }
+    }
+
+    return dummy.next;
+};
+
+
+
+// Time Complexity: O(n)                               ---     Brute Force
 // Space Complexity: O(n)
 
 var deleteDuplicates = function (head) {
