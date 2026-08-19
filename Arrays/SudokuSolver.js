@@ -1,4 +1,88 @@
-// Time Complexity: O(9^m)            
+// Time Complexity: O(9^m)                         ---     Optimal Approach
+// Space Complexity: O(m) + O(1)
+
+var solveSudoku = function (board) {
+    let rows = Array.from({ length: 9 }, () => new Set());
+    let cols = Array.from({ length: 9 }, () => new Set());
+    let boxes = Array.from({ length: 9 }, () => new Set());
+
+    // Store existing numbers
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            let value = board[row][col];
+
+            if (value !== ".") {
+                rows[row].add(value);
+                cols[col].add(value);
+
+                let box = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                boxes[box].add(value);
+            }
+        }
+    }
+
+    function backtrack() {
+
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+
+                // Skip already filled cells
+                if (board[row][col] !== ".") {
+                    continue;
+                }
+
+                let box =
+                    Math.floor(row / 3) * 3 +
+                    Math.floor(col / 3);
+
+                // Try numbers 1 to 9
+                for (let num = 1; num <= 9; num++) {
+                    let value = String(num);
+
+                    // Check row, column and box
+                    if (
+                        rows[row].has(value) ||
+                        cols[col].has(value) ||
+                        boxes[box].has(value)
+                    ) {
+                        continue;
+                    }
+
+                    // Place number
+                    board[row][col] = value;
+                    rows[row].add(value);
+                    cols[col].add(value);
+                    boxes[box].add(value);
+
+                    // Continue solving
+                    if (backtrack()) {
+                        return true;
+                    }
+
+                    // Backtrack
+                    board[row][col] = ".";
+                    rows[row].delete(value);
+                    cols[col].delete(value);
+                    boxes[box].delete(value);
+                }
+
+                // No number works here
+                return false;
+            }
+        }
+
+        // No empty cells remaining
+        return true;
+    }
+
+    backtrack();
+};
+
+
+
+
+
+// Time Complexity: O(9^m)                         ---     Brute Force
 // Space Complexity: O(m)
 
 var solveSudoku = function (board) {
