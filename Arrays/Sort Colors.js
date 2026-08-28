@@ -1,4 +1,44 @@
-// Time Complexity: O(n)                            
+// Time Complexity: O(n)                               ---     Optimal Approach
+// Space Complexity: O(1)
+
+var sortColors = function (nums) {
+    let left = 0;
+    let current = 0;
+    let right = nums.length - 1;
+
+    while (current <= right) {
+
+        // Move 0 to the left
+        if (nums[current] === 0) {
+            [nums[left], nums[current]] =
+                [nums[current], nums[left]];
+
+            left++;
+            current++;
+        }
+
+        // 1 is already in the correct middle section
+        else if (nums[current] === 1) {
+            current++;
+        }
+
+        // Move 2 to the right
+        else {
+            [nums[current], nums[right]] =
+                [nums[right], nums[current]];
+
+            right--;
+
+            // Don't move current here because
+            // the swapped value needs to be checked
+        }
+    }
+};
+
+
+
+
+// Time Complexity: O(n)                               ---     Brute Force
 // Space Complexity: O(1)
 
 var sortColors = function (nums) {
