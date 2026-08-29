@@ -1,4 +1,57 @@
-// Time Complexity: O(3^4 * n)                      
+// Time Complexity: O(3^4 * n)                         ---     Optimal Approach
+// Space Complexity: O(n)
+
+var restoreIpAddresses = function (s) {
+    const result = [];
+    const current = [];
+
+    function backtrack(start) {
+
+        // We have exactly 4 IP parts
+        if (current.length === 4) {
+
+            // All digits must be used
+            if (start === s.length) {
+                result.push(current.join("."));
+            }
+
+            return;
+        }
+
+        // Try 1, 2, or 3 digits
+        for (let end = start; end < Math.min(start + 3, s.length); end++) {
+
+            const part = s.slice(start, end + 1);
+
+            // Leading zero is invalid
+            if (part.length > 1 && part[0] === "0") {
+                break;
+            }
+
+            // Value must be <= 255
+            if (Number(part) > 255) {
+                break;
+            }
+
+            current.push(part);
+
+            // Move to the next part
+            backtrack(end + 1);
+
+            // Backtrack
+            current.pop();
+        }
+    }
+
+    backtrack(0);
+
+    return result;
+};
+
+
+
+
+// Time Complexity: O(3^4 * n)                         ---     Brute Force
 // Space Complexity: O(n)
 
 var restoreIpAddresses = function (s) {
