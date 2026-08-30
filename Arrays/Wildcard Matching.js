@@ -1,3 +1,63 @@
+// Time Complexity: O(n + m)
+// Space Complexity: O(1)   // excluding input
+
+// Optimized Approach (Greedy)
+
+var isMatch = function(s, p) {
+    let i = 0;
+    let j = 0;
+
+    let star = -1;
+    let match = 0;
+
+    while (i < s.length) {
+
+        // Characters match OR '?' matches any character
+        if (
+            j < p.length &&
+            (p[j] === s[i] || p[j] === '?')
+        ) {
+            i++;
+            j++;
+        }
+
+        // Found '*'
+        else if (j < p.length && p[j] === '*') {
+            star = j;
+            match = i;
+
+            // Initially '*' matches empty sequence
+            j++;
+        }
+
+        // Mismatch, but we have seen '*'
+        else if (star !== -1) {
+            // Go back to the character after '*'
+            j = star + 1;
+
+            // Let '*' match one more character
+            match++;
+            i = match;
+        }
+
+        // Mismatch and no '*' available
+        else {
+            return false;
+        }
+    }
+
+    // Remaining pattern should contain only '*'
+    while (j < p.length) {
+        if (p[j] !== '*') {
+            return false;
+        }
+
+        j++;
+    }
+
+    return true;
+};
+
 
 
 
