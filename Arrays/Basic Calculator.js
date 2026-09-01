@@ -65,3 +65,75 @@ var calculate = function (s) {
 
     return result;
 };
+
+
+
+
+
+// Time Complexity: O(n²) approximately              -------      // Brute Force
+// Space Complexity: O(n) for recursion
+
+var calculate = function (s) {
+
+    function solve(str) {
+        let result = 0;
+        let number = 0;
+        let sign = 1;
+
+        for (let i = 0; i < str.length; i++) {
+            let ch = str[i];
+
+            // Build number
+            if (ch >= "0" && ch <= "9") {
+                number = number * 10 + Number(ch);
+            }
+
+            // +
+            else if (ch === "+") {
+                result += sign * number;
+                number = 0;
+                sign = 1;
+            }
+
+            // -
+            else if (ch === "-") {
+                result += sign * number;
+                number = 0;
+                sign = -1;
+            }
+
+            // (
+            else if (ch === "(") {
+                let count = 1;
+                let j = i + 1;
+
+                // Find matching )
+                while (j < str.length && count > 0) {
+                    if (str[j] === "(") {
+                        count++;
+                    } else if (str[j] === ")") {
+                        count--;
+                    }
+
+                    j++;
+                }
+
+                // Extract content inside ()
+                let inside = str.substring(i + 1, j - 1);
+
+                // Recursively calculate
+                number = solve(inside);
+
+                // Move i to closing )
+                i = j - 1;
+            }
+        }
+
+        // Add last number
+        result += sign * number;
+
+        return result;
+    }
+
+    return solve(s);
+};
