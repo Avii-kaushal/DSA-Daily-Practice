@@ -1,3 +1,29 @@
+// Time Complexity: O(log(min(x, y)))                   -----    Optimized
+// Space Complexity: O(1)
+
+var canMeasureWater = function (x, y, target) {
+
+    if (target > x + y) {
+        return false;
+    }
+
+    const gcd = (a, b) => {
+
+        while (b !== 0) {
+            [a, b] = [b, a % b];
+        }
+
+        return a;
+    };
+
+    return target % gcd(x, y) === 0;
+};
+
+
+
+
+
+
 // Time Complexity: O(x * y).                       -----    Brute Force
 // Space Complexity: O(x * y)
 
