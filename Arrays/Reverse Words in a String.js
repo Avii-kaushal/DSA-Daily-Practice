@@ -1,4 +1,13 @@
 // Time Complexity: O(n)
+// Space Complexity: O(n)                 Optimal Approach
+
+function reverseWords(s) {
+    return s.trim().split(/\s+/).reverse().join(" ");
+}
+
+
+
+// Time Complexity: O(n)
 // Space Complexity: O(n)                 Brute Force Approach
 
 function reverseWords(s) {
