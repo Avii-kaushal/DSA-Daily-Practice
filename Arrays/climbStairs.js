@@ -14,11 +14,6 @@ function climbStairs(n) {
     return dp[n];
 }
 
-// Driver Code
-let n = 3;
-
-console.log(climbStairs(n));
-// 3
 
 
 
