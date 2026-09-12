@@ -1,3 +1,52 @@
+// Time Complexity: O(n)
+// Space Complexity: O(n)                 Optimal Approach
+
+function buildTree(preorder, inorder) {
+    // Map each value to its index in inorder
+    let inorderMap = new Map();
+
+    for (let i = 0; i < inorder.length; i++) {
+        inorderMap.set(inorder[i], i);
+    }
+
+    let preorderIndex = 0;
+
+    function build(left, right) {
+        // No elements in this subtree
+        if (left > right) {
+            return null;
+        }
+
+        // First element in preorder is the root
+        let rootValue = preorder[preorderIndex++];
+        let root = new TreeNode(rootValue);
+
+        // Find root position in inorder
+        let rootIndex = inorderMap.get(rootValue);
+
+        // Build left subtree
+        root.left = build(left, rootIndex - 1);
+
+        // Build right subtree
+        root.right = build(rootIndex + 1, right);
+
+        return root;
+    }
+
+    return build(0, inorder.length - 1);
+}
+
+
+// Driver Code
+function TreeNode(val, left = null, right = null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+}
+
+
+
+
 // Time Complexity: O(n^2)
 // Space Complexity: O(n)                 Brute Force Approach
 
