@@ -1,3 +1,42 @@
+
+// Time Complexity: O(n)              Stack Approach  ---   Optimal Approach
+// Space Complexity: O(n)
+
+function simplifyPath(path) {
+    let stack = [];
+
+    // Split path using "/"
+    let parts = path.split("/");
+
+    for (let part of parts) {
+
+        // Ignore empty strings and "."
+        if (part === "" || part === ".") {
+            continue;
+        }
+
+        // ".." means go to parent directory
+        if (part === "..") {
+
+            // Only pop if we are not already at root
+            if (stack.length > 0) {
+                stack.pop();
+            }
+        }
+
+        // Any other name is a valid directory/file name
+        else {
+            stack.push(part);
+        }
+    }
+
+    // Join directories with "/"
+    return "/" + stack.join("/");
+}
+
+
+
+
 // Time Complexity: O(n)              Array Approach  ---   Brute Force Approach
 // Space Complexity: O(n)
 
