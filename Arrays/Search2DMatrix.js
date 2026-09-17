@@ -1,3 +1,38 @@
+// Time Complexity: O(log(m * n))        Binary Search  ---   Optimal Approach
+// Space Complexity: O(1)
+
+function searchMatrix(matrix, target) {
+    let m = matrix.length;
+    let n = matrix[0].length;
+
+    let left = 0;
+    let right = m * n - 1;
+
+    while (left <= right) {
+
+        let mid = Math.floor((left + right) / 2);
+
+        // Convert 1D index to 2D row and column
+        let row = Math.floor(mid / n);
+        let col = mid % n;
+
+        if (matrix[row][col] === target) {
+            return true;
+        }
+
+        if (matrix[row][col] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return false;
+}
+
+
+
+
 // Time Complexity: O(m * n)              Linear Search  ---   Brute Force Approach
 // Space Complexity: O(1)
 
