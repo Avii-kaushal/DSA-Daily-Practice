@@ -1,3 +1,51 @@
+// Time Complexity: O(n * sqrt(max(nums)))                ---     Optimal Approach
+// Space Complexity: O(1)
+
+function sumFourDivisors(nums) {
+    let total = 0;
+
+    for (let num of nums) {
+
+        let count = 0;
+        let sum = 0;
+
+        for (let i = 1; i * i <= num; i++) {
+
+            if (num % i === 0) {
+
+                let divisor1 = i;
+                let divisor2 = num / i;
+
+                // Add first divisor
+                count++;
+                sum += divisor1;
+
+                // Add paired divisor
+                if (divisor1 !== divisor2) {
+                    count++;
+                    sum += divisor2;
+                }
+
+                // More than 4 divisors
+                if (count > 4) {
+                    break;
+                }
+            }
+        }
+
+        // Exactly 4 divisors
+        if (count === 4) {
+            total += sum;
+        }
+    }
+
+    return total;
+}
+
+
+
+
+
 // Time Complexity: O(n * max(nums))                ---     Brute Force
 // Space Complexity: O(1)
 
