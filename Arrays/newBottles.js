@@ -1,3 +1,26 @@
+// Time Complexity: O(log(n))                  Simulation Approach  ---   Better Approach
+// Space Complexity: O(1)
+
+function numWaterBottles(numBottles, numExchange) {
+    let total = numBottles;
+    let empty = numBottles;
+
+    while (empty >= numExchange) {
+
+        // Exchange empty bottles for new bottles
+        let newBottles = Math.floor(empty / numExchange);
+
+        // Add newly obtained bottles to total
+        total += newBottles;
+
+        // Remaining empty bottles
+        empty = (empty % numExchange) + newBottles;
+    }
+
+    return total;
+}
+
+
 
 // Time Complexity: O(n)                  Simulation Approach  ---   Brute Force Approach
 // Space Complexity: O(1)
