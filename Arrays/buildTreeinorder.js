@@ -28,3 +28,48 @@ function buildTree(inorder, postorder) {
 
     return root;
 }
+
+
+
+
+// Time Complexity: O(n)                  HashMap + Recursion  ---  Optimal Approach
+// Space Complexity: O(n)
+
+function buildTree(inorder, postorder) {
+
+    let inorderMap = new Map();
+
+    // Store value -> index
+    for (let i = 0; i < inorder.length; i++) {
+        inorderMap.set(inorder[i], i);
+    }
+
+    let postIndex = postorder.length - 1;
+
+    function build(left, right) {
+
+        // No elements
+        if (left > right) {
+            return null;
+        }
+
+        // Last element in postorder is the root
+        let rootValue = postorder[postIndex--];
+
+        let root = new TreeNode(rootValue);
+
+        // Find root index in inorder
+        let rootIndex = inorderMap.get(rootValue);
+
+        // Build RIGHT first because we're
+        // traversing postorder from right to left
+        root.right = build(rootIndex + 1, right);
+
+        // Build LEFT
+        root.left = build(left, rootIndex - 1);
+
+        return root;
+    }
+
+    return build(0, inorder.length - 1);
+}
