@@ -1,3 +1,20 @@
+// Time Complexity: O(2^n)                     Bit Manipulation  ---  Optimal Approach
+// Space Complexity: O(2^n)
+
+function grayCode(n) {
+    let result = [];
+    let total = 1 << n;
+
+    for (let i = 0; i < total; i++) {
+        result.push(i ^ (i >> 1));
+    }
+
+    return result;
+}
+
+
+
+
 // Time Complexity: O(2^n * 2^n)              Backtracking  ---  Brute Force Approach
 // Space Complexity: O(2^n)
 
