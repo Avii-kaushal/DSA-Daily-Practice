@@ -1,4 +1,4 @@
-// Time Complexity: O(n) --- Optimal Approach
+// Time Complexity: O(n) --- Optimal Approach ------
 // Space Complexity: O(1)
 
 function hasCycle(head) {
