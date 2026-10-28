@@ -1,3 +1,20 @@
+// Time Complexity: O(log₅ n) --- Optimal Approach
+// Space Complexity: O(1)
+
+function trailingZeroes(n) {
+    let count = 0;
+
+    while (n >= 5) {
+        n = Math.floor(n / 5);
+        count += n;
+    }
+
+    return count;
+}
+
+
+
+
 // Time Complexity: O(n log n) --- Brute Force Approach
 // Space Complexity: O(1)
 
