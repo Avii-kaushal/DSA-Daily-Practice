@@ -1,3 +1,29 @@
+// Time Complexity: O(n) --- Optimal Approach
+// Space Complexity: O(1)
+
+var removeElements = function(head, val) {
+
+    let dummy = new ListNode(0);
+    dummy.next = head;
+
+    let curr = dummy;
+
+    while (curr.next !== null) {
+
+        if (curr.next.val === val) {
+            curr.next = curr.next.next;
+        } else {
+            curr = curr.next;
+        }
+
+    }
+
+    return dummy.next;
+};
+
+
+
+
 // Time Complexity: O(n) --- Brute Force
 // Space Complexity: O(n)
 
