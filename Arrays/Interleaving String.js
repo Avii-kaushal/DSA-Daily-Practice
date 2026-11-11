@@ -1,3 +1,52 @@
+// Time Complexity: O(m * n) --- Optimal Approach
+// Space Complexity: O(n)
+
+var isInterleave = function(s1, s2, s3) {
+
+    let m = s1.length;
+    let n = s2.length;
+
+    if (m + n !== s3.length) {
+        return false;
+    }
+
+    let dp = Array(n + 1).fill(false);
+
+    // Initialize first row
+    dp[0] = true;
+
+    for (let j = 1; j <= n; j++) {
+        dp[j] = dp[j - 1] &&
+                s2[j - 1] === s3[j - 1];
+    }
+
+    // Process remaining rows
+    for (let i = 1; i <= m; i++) {
+
+        // First column: only s1 can contribute
+        dp[0] = dp[0] &&
+                s1[i - 1] === s3[i - 1];
+
+        for (let j = 1; j <= n; j++) {
+
+            let k = i + j - 1;
+
+            let takeS1 =
+                dp[j] && s1[i - 1] === s3[k];
+
+            let takeS2 =
+                dp[j - 1] && s2[j - 1] === s3[k];
+
+            dp[j] = takeS1 || takeS2;
+        }
+    }
+
+    return dp[n];
+};
+
+
+
+
 // Time Complexity: O(m * n)
 // Space Complexity: O(m * n) + O(m + n) recursion stack
 
