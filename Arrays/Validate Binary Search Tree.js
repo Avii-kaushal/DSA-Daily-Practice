@@ -1,3 +1,35 @@
+// Time Complexity: O(N) --- Optimal Approach
+// Space Complexity: O(H)
+
+var isValidBST = function(root) {
+
+    // Validate each node within its allowed range
+    function validate(node, min, max) {
+
+        if (!node) return true;
+
+        // Check whether current node violates BST range
+        if (node.val <= min || node.val >= max) {
+            return false;
+        }
+
+        // Validate left subtree
+        // All values must be smaller than current node
+        let left = validate(node.left, min, node.val);
+
+        // Validate right subtree
+        // All values must be greater than current node
+        let right = validate(node.right, node.val, max);
+
+        return left && right;
+    }
+
+    // Initially, allow the complete integer range
+    return validate(root, -Infinity, Infinity);
+};
+
+
+
 // Time Complexity: O(N²) --- Brute Force Approach
 // Space Complexity: O(H)
 
