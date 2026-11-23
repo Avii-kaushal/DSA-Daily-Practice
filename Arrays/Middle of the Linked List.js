@@ -5,6 +5,30 @@ Space Complexity: O(1)
 */
 
 var middleNode = function(head) {
+    let slow = head;
+    let fast = head;
+
+    // Move slow by 1 step and fast by 2 steps
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    // Slow pointer reaches the middle node
+    return slow;
+};
+
+
+
+
+
+
+/*
+Time Complexity: O(N)
+Space Complexity: O(1)
+*/
+
+var middleNode = function(head) {
     let length = 0;
     let current = head;
 
